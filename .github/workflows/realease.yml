@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Generate changelog   # <-- CORRIGIDO
+      - name: Generate changelog
         id: cliff
         uses: orhun/git-cliff-action@v4
         with:
@@ -31,18 +31,6 @@ jobs:
         with:
           name: changelog-md
           path: CHANGELOG.md
-
-      - name: PR com changelog
-        id: pr
-        uses: peter-evans/create-pull-request@v6
-        with:
-          branch: chore/changelog-${{ github.ref_name }}
-          base: ${{ github.event.repository.default_branch }}
-          title: "docs(changelog): ${{ github.ref_name }}"
-          commit-message: "docs(changelog): ${{ github.ref_name }}"
-          add-paths: CHANGELOG.md
-          delete-branch: true
-
   # Só começa se o PR foi criado (ou o changelog gerado) —> needs
   build-test:
     needs: changelog
