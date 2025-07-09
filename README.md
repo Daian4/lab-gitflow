@@ -3,3 +3,5 @@
 
 ## Licença
 MIT
+
+Corrige erro de digitação.
