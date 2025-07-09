@@ -1,12 +1,6 @@
-import { mkdir, copyFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+const { mkdirSync, copyFileSync } = require('node:fs');
+const { join } = require('node:path');
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const src = join(__dirname, '..', 'index.js');
-const destDir = join(__dirname, '..', 'dist');
-
-await mkdir(destDir, { recursive: true });
-await copyFile(src, join(destDir, 'index.js'));
-
+mkdirSync('dist', { recursive: true });
+copyFileSync(join(__dirname, '..', 'index.js'), join('dist', 'index.js'));
 console.log('📦  Arquivo copiado para dist/');
