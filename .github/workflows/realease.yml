@@ -18,6 +18,14 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Generate changelog   # <-- CORRIGIDO
+        id: cliff
+        uses: orhun/git-cliff-action@v4
+        with:
+          args: --verbose --tag ${{ github.ref_name }}
+        env:
+          OUTPUT: CHANGELOG.md 
+
       - name: Upload changelog artifact
         uses: actions/upload-artifact@v4
         with:
