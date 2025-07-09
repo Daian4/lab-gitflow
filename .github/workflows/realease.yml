@@ -1,0 +1,89 @@
+name: Release Pipeline
+
+on:
+  push:
+    tags: ["v*.*.*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate changelog
+        uses: orhun/git-cliff-action@v3
+        with:
+          args: -v --tag ${{ github.ref_name }} > CHANGELOG.md
+
+      - name: PR com changelog
+        id: pr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: chore/changelog-${{ github.ref_name }}
+          title: "docs(changelog): ${{ github.ref_name }}"
+          commit-message: "docs(changelog): ${{ github.ref_name }}"
+          add-paths: CHANGELOG.md
+          delete-branch: true
+
+  # Só começa se o PR foi criado (ou o changelog gerado) —> needs
+  build-test:
+    needs: changelog
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [18, 20]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
+      - run: npm ci --production
+      - run: npm test
+      - run: npm run build
+      - name: Upload artefatos
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ runner.os }}-node${{ matrix.node }}
+          path: dist/
+
+  # Só dispara se TODOS builds passaram
+  release:
+    needs: build-test
+    if: github.event_name == 'push'  # só no push da tag
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download artefatos
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: CHANGELOG.md
+          files: artifacts/**/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fake deploy
+        run: echo "🚀 Deploy realizado a partir da release ${{ github.ref_name }}"
