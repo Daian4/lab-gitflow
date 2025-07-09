@@ -28,6 +28,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           branch: chore/changelog-${{ github.ref_name }}
+          base: ${{ github.event.repository.default_branch }}
           title: "docs(changelog): ${{ github.ref_name }}"
           commit-message: "docs(changelog): ${{ github.ref_name }}"
           add-paths: CHANGELOG.md
