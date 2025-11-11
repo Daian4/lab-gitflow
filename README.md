@@ -5,6 +5,63 @@
 ![Banner](banner.png)
 
 ---
+## Descrição:
+- Utilizar pipeline de CI/CD configurado no GitHub Actions
+- Trigger automático ao criar tag na branch main
+- Executa testes, build e deploy automaticamente
+  
+## Prós:
+✅ Processo totalmente automatizado
+✅ Reduz erro humano
+✅ Logs centralizados no GitHub Actions
+✅ Rollback mais rápido através de rerun
+✅ Notificações automáticas de status
+
+## Contras:
+❌ Dependência da disponibilidade do GitHub
+❌ Menor controle granular em situações específicas
+❌ Pode ser mais lento em casos de urgência
+❌ Custos de minutos de CI/CD
+
+## Deploy Híbrido (Manual com Automação)
+## Descrição:
+
+- Preparação manual seguindo Git Flow
+- Criação de release branch e tag manual
+- Automação através de CI/CD para deploy efetivo
+- Validações manuais antes e depois
+
+## Prós:
+✅ Balanceamento entre controle e automação
+✅ Validações críticas mantidas manuais
+✅ Deploy consistente via automação
+✅ Boa rastreabilidade
+✅ Flexibilidade em situações especiais
+
+## Contras:
+❌ Requer mais passos que deploy totalmente automático
+❌ Curva de aprendizado maior
+❌ Possibilidade de erro nas etapas manuais
+
+⭐ Opção Escolhida: Deploy Híbrido
+
+## Justificativa:
+
+- Oferece melhor balanceamento entre segurança e eficiência
+- Mantém controle humano nas decisões críticas (quando fazer deploy, qual versão)
+- Aproveita automação para passos repetitivos e propensos a erro
+- Adequado para equipes pequenas com necessidade de rastreabilidade
+- Alinha-se com as práticas de Git Flow já implementadas no projeto
+- Permite validação antes do deploy efetivo
+
+## Visão Geral
+Este repositório contém runbook e documenta o processo híbrido de deploy manual em produção usando Git Flow, combinando preparação manual cuidadosa com automação via CI/CD. O procedimento garante deployment seguro através de validações em múltiplos pontos, versionamento semântico adequado, e rastreabilidade completa de todas as mudanças desde develop até produção.
+
+## Pontos-Chave
+Objetivo: Deploy seguro e rastreável seguindo Git Flow
+Duração: 25-40 minutos (normal), até 1h (com problemas)
+Complexidade: Média-Alta (requer conhecimento de Git Flow)
+Impacto: Alto (aplicação ficará indisponível por 2-5 minutos)
 
 ## ✨ O que pratiquei
 
