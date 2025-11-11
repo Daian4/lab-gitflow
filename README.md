@@ -104,6 +104,21 @@ Closes #123
 
 ---
 
+## 📚 Runbooks Operacionais
+
+Documentação completa de procedimentos operacionais críticos:
+
+| Runbook | Descrição |
+|---------|-----------|
+| [Índice de Runbooks](./runbooks/README.md) | Guia principal e índice de todos os runbooks |
+| [RB-001: Deploy Manual](./runbooks/RB-001-deploy-manual.md) | Procedimento completo para deploy em produção |
+| [RB-002: Backup](./runbooks/RB-002-backup.md) | Procedimento de backup do sistema |
+| [RB-003: Restauração](./runbooks/RB-003-restauracao.md) | Procedimento de restauração a partir de backup |
+
+> **💡 Dica:** Consulte os runbooks antes de executar operações críticas como deploy ou restauração.
+
+---
+
 <br>
 
 > **Dica:** Para ver os *workflows* completos, abra a aba **Actions** no GitHub. 😉
