@@ -161,7 +161,15 @@ Closes #123
 
 ---
 
-## 📚 Runbooks Operacionais
+## 📚 Documentação Técnica
+
+### Análise e Explicação de Código
+
+| Documento | Descrição |
+|-----------|-----------|
+| [Explicação do Código e Rollback](./EXPLICACAO-CODIGO-E-ROLLBACK.md) | Análise técnica detalhada do funcionamento do código e procedimentos de rollback em produção |
+
+### Runbooks Operacionais
 
 Documentação completa de procedimentos operacionais críticos:
 
